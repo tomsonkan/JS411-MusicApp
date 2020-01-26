@@ -8,14 +8,14 @@ export class UserForm extends Component {
     username: " ",
     password: " ",
     loggedIn: false,
-    online:false
   }
 
   nextStep = () => {
     const {step} = this.state;
     this.setState({
-      step: step + 1
+      step: step + 1,
     })
+    
   }
 
   prevStep = () => {
@@ -26,7 +26,16 @@ export class UserForm extends Component {
   }
 
   handleChange = input => e => {
-    this.setState({[input]: e.target.value})
+    this.setState({
+      [input]: e.target.value,
+      online:!this.state.online
+    })
+    console.log("online?", this.state.online)
+  }
+
+  handleLoggin = () => {
+    this.setState({ loggedIn: true})
+    
   }
 
   render() {
@@ -40,11 +49,14 @@ export class UserForm extends Component {
           nextStep={this.nextStep}
           handleChange={this.handleChange}
           values = {values}
+          onLoggin = {this.handleLoggin}
          /> 
         )
         case 2:
         return(
-          <Dashboard />
+          <Dashboard 
+          onLine = {this.handleOnline}
+          />
         )
         case 3:
         return(

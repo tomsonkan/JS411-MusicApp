@@ -3,9 +3,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-// import Button from 'material-ui/Button';
-// import IconButton from 'material-ui/IconButton';
-// import MenuIcon from 'material-uis/Menu';
 import '../App.css';
 
 export class FormUserDetails extends Component {
@@ -14,6 +11,11 @@ export class FormUserDetails extends Component {
     e.preventDefault();
     this.props.nextStep();
     
+  }
+
+  twoCalls = e => {
+    this.props.onLoggin(e)
+    this.continue(e)
   }
   
   render() {
@@ -42,7 +44,7 @@ export class FormUserDetails extends Component {
         label = "Submit"
         primary = {true}
         style={styles.button}
-        onClick = {this.continue}
+        onClick = {this.twoCalls} 
       />
       </React.Fragment>
     </MuiThemeProvider>
