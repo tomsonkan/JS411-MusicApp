@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+// import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Grid from "@material-ui/core/Grid";
@@ -7,42 +7,6 @@ import Volume from "./dashComps/Volume"
 import Online from "./dashComps/Online"
 import Quality from "./dashComps/Quality"
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    display: 'flex',
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  content: {
-    flex: '1 0 auto',
-  },
-  cover: {
-    width: 151,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  playIcon: {
-    height: 38,
-    width: 38,
-  },
-  root: {
-    width: 200,
-  },
-  button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-}));
 
 export default function MediaControlCard() {
   const [state, setState] = React.useState({
@@ -50,20 +14,60 @@ export default function MediaControlCard() {
     checkedB: true,
     online: true,
     volume: 20,
-    notifications: []
+    notifications: [],
+    quality: "Normal"
   });
   
+  function handleQualityChange (event) {
+    console.log(event.target.value)
+    event.preventDefault()
+    if(event.target.value === "Low") {
+        setState({
+          online: state.online,
+          volume:state.volume,
+          notifications: [...state.notifications, "Music quality is degraded. Increase quality if your connection allows it."],
+        })
+      }
+  }
 
-  // const toggleNotification = (alert) => {
-	// 	const baseCall = this.state.notifications.indexOf(alert); 
 
-	// 	if (state.notifications.includes(alert)) {
-	// 	  state.notifications.splice(baseCall, 1);
-	// 	} else {
-	// 		this.setState({ notifications: [alert] });
-	// 	}
-  // }
+  function handleOnlineChange (event) {
+      if(state.online === true) 
+      setState({
+          online: false,
+          volume:state.volume,
+          notifications: [...state.notifications, "Your application is offline. You won't be able to share or stream music to other devices."]
+      })
+      if (state.online === false){
+      setState({
+          online: true,
+          volume:state.volume,
+          notifications: [...state.notifications, "You are now online!"],
+      })
+    }
+    console.log(state.online)
+  }
 
+
+  function handleVolChange (e , value) {
+      console.log(e)
+      setState({
+        online: state.online,
+        volume: value,
+        notifications: state.notifications,
+      })
+      console.log("---", state.volume)
+      if(parseInt(value) > 80) {
+          setState({
+            online: state.online,
+            volume: value,
+            notifications: [...state.notifications, "Listening to volumes of 80 or higher may result in hearing damage!"],
+          
+          });
+          console.log("***", state.volume)
+      }
+      console.log("**//*", state.volume)
+  }
 
   return (
     <MuiThemeProvider>
@@ -72,17 +76,31 @@ export default function MediaControlCard() {
       <br/>
       <h1> Welcome User!</h1> 
       <Grid container justify="center" spacing={6}>
-      <Online />
+      <Online 
+        onlineChange = {handleOnlineChange}
+      />
       <br/>
-      <Volume />
+      <Volume 
+        volChange = {handleVolChange} 
+        volume = {state.volume}
+        />
       <br/>
-      <Quality />
+      <Quality 
+        onChange = {handleQualityChange}
+        />
     </Grid>
-    {/* <div>
+    <div>
       <h1>System Notifications</h1>
-			 <p>{state.toggleNotification}</p>
-		</div> */}
-
+       <ul>
+        {state.notifications.map((item, index) => {
+          return (
+          <li key={index}>
+            {item}
+          </li>
+          )
+        })}
+        </ul>
+		</div>
     </React.Fragment>
     </MuiThemeProvider>
   );

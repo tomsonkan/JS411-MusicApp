@@ -35,39 +35,26 @@ const useStyles = makeStyles(theme => ({
     width: 38,
   },
   root: {
-    width: 200,
+    justifyContent: 'center'
   },
   button: {
     display: 'block',
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(10),
+    fontSize: 20
   },
   formControl: {
     margin: theme.spacing(1),
+    marginLeft: theme.spacing(10),
     minWidth: 120,
   },
 }));
 
-export default function Quality() {
-  const [state, setState] = React.useState(" ");
+export default function Quality (props) {
   
 
   const classes = useStyles();
-  // const theme = useTheme();
-  // const [value, setValue] = React.useState(20)
-  const [age, setAge] = React.useState('');
   const [open, setOpen] = React.useState(false);
-
-
-  const handleChangeForm = event => {
-    setAge(event.target.value);
-    if(event.target.value === "Low") {
-      document.getElementById("text").innerHTML = "Music quality is degraded. Increase quality if your connection allows it.";
-    }
-    else{
-      document.getElementById("text").innerHTML = "";
-    }
-  };
-
 
   const handleClose = () => {
     setOpen(false);
@@ -85,7 +72,7 @@ export default function Quality() {
       <Button className={classes.button} onClick={handleOpen}>
         Open the select
       </Button>
-      <FormControl className={classes.formControl}>
+      <FormControl className={classes.formControl} >
         <InputLabel id="demo-controlled-open-select-label">Quality</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
@@ -93,9 +80,9 @@ export default function Quality() {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={age}
-          onChange={handleChangeForm}
-        >
+          value={props.quality}
+          onChange={props.onChange}
+          >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
@@ -111,9 +98,6 @@ export default function Quality() {
         title="Live from space album cover"
       />
     </Card>
-    <p>
-    <h4 id="text"></h4>
-    </p>
     </Grid>
    
   );

@@ -58,14 +58,6 @@ export class UserForm extends Component {
           onLine = {this.handleOnline}
           />
         )
-        case 3:
-        return(
-          <h1>Confirm</h1>
-        )
-        case 4:
-        return(
-          <h1>Success</h1>
-        )
     }
   }
 }
