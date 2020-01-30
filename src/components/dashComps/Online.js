@@ -16,34 +16,36 @@ import CardActions from '@material-ui/core/CardActions';
 
   export default function Online (props) {
     
+  // onChange tied to handleOnlineChange which is dependent on whether state.online is true or false.
+  // A notification is fired off explaining whether online.state is true or false.
             return(
               <Grid item md={3}>
               <Card className='control'>
-              <div className='details'>
-                <CardContent className='content'>
-                  <Typography component="h5" variant="h5">
-                    Online Mode
-                  </Typography>
-                </CardContent>
-                <FormControl component="fieldset">
-                <FormGroup aria-label="position" row>
-                <FormControlLabel
-                  value="Status"
-                  control={<Switch 
-                    color={ props.online ? "primary" : "default" } 
-                    onChange = {props.onlineChange} checked = {props.online} />
-                  }
-                  label="Status"
-                  labelPlacement="start"
+                <div className='details'>
+                  <CardContent className='content'>
+                    <Typography component="h5" variant="h5">
+                      Online Mode
+                    </Typography>
+                  </CardContent>
+                  <FormControl component="fieldset">
+                  <FormGroup aria-label="position" row>
+                  <FormControlLabel
+                    value="Status"
+                    control={<Switch 
+                      color={ props.online ? "primary" : "default" } 
+                      onChange = {props.onlineChange} checked = {props.online} />
+                    }
+                    label="Status"
+                    labelPlacement="start"
+                  />
+                  </FormGroup>
+                  </FormControl>
+                </div>
+                <CardMedia
+                  className='cover'
+                  image="/static/images/cards/live-from-space.jpg"
+                  title="Live from space album cover"
                 />
-                </FormGroup>
-              </FormControl>
-              </div>
-              <CardMedia
-                className='cover'
-                image="/static/images/cards/live-from-space.jpg"
-                title="Live from space album cover"
-              />
                 <CardActions disableSpacing>
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
@@ -52,13 +54,15 @@ import CardActions from '@material-ui/core/CardActions';
                     <ShareIcon />
                   </IconButton>
                 </CardActions>
-          
-                    </Card>
-                   
+              </Card>
               </Grid>
               
-            )
+          )
    }
+
+
+
+
   // }
 
   // export default Online
@@ -80,7 +84,7 @@ import CardActions from '@material-ui/core/CardActions';
 
     // render(){
 
-     {/* {
+     /* {
                       this.state.online ? 
                         <p>
                         <h3>System Notification:</h3>
@@ -91,4 +95,4 @@ import CardActions from '@material-ui/core/CardActions';
                         <h4>Your application is offline. You won't be able to share or stream music to other devices.</h4>
                         </p> 
 
-                    } */}
+                    } */

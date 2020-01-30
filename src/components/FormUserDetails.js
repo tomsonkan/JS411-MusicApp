@@ -7,20 +7,21 @@ import '../App.css';
 
 export class FormUserDetails extends Component {
   
+  //continue function to proceed to the nextStep (assigned to submit button)
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
-    
   }
 
+  //twoCalls function including changing onLogin 
   twoCalls = e => {
-    this.props.onLoggin(e)
+    this.props.onLogin(e)
     this.continue(e)
   }
   
+  //render the form and properties for the login screen
   render() {
   const { values, handleChange } = this.props;
-  // this.props.values;
 
   return (
     <MuiThemeProvider>

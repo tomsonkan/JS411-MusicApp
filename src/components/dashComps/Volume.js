@@ -10,6 +10,7 @@ import VolumeDown from '@material-ui/icons/VolumeDown';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 
 
+//via makeStyles from material-ui to format the card
 const useStyles = makeStyles(theme => ({
   card: {
     display: 'flex',
@@ -44,6 +45,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Volume (props) {
   
+  // value based on "volume" state. onChange tied to handleVolChange 
+  // which fires a notification when value > 80
   const classes = useStyles();
   return (
       <Grid item md={3}>
@@ -54,7 +57,7 @@ export default function Volume (props) {
             Master Volume
           </Typography>
         </CardContent>
-      <Grid container spacing={2}>
+        <Grid container spacing={2}>
         <Grid item>
           <VolumeDown />
         </Grid>
@@ -73,13 +76,13 @@ export default function Volume (props) {
         <Grid item>
           <VolumeUp />
         </Grid>
-      </Grid>
+       </Grid>
       </div>
       <CardMedia
-        className={classes.cover}
-        image="/static/images/cards/live-from-space.jpg"
-        title="Live from space album cover"
-        />
+          className={classes.cover}
+          image="/static/images/cards/live-from-space.jpg"
+          title="Live from space album cover"
+          />
       </Card>
       </Grid>
       )
